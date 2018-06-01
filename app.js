@@ -127,13 +127,33 @@ App = (function() {
         });
     };
     
+    var adjustToViewportHeight = function() {
+        var height = document.documentElement.clientHeight;
+        
+        if(height <= 600) {
+            results.classList.add('flatten');
+        } else {
+            results.classList.remove('flatten');
+        }
+    };
+    
+    var detectWindowResize = function() {
+        window.addEventListener('resize', function() {
+            adjustToViewportHeight();
+        });
+    }
+    
     return {
         init: function() {
+            adjustToViewportHeight();
+
             bindFields();
             bindSubmitBtn();
             bindResetBtn();
+            
+            detectWindowResize();
         }
-    }
+    };
  
 })();
 

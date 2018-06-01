@@ -102,6 +102,7 @@ article header h1 {
 
 main {
     margin-top: 20px;
+    width: calc(100% - 20px);
 }
 
 form {
@@ -111,7 +112,7 @@ form {
 }
 
 form.calculate {
-    min-height: 60vh;
+    min-height: 75vh;
     max-height: 600px;
     transition: min-height 800ms;
 }
@@ -145,7 +146,7 @@ form.calculate {
 }
 
 form.calculate .form-control.from:before {
-    height: calc(60vh - 115px);
+    height: calc(75vh - 115px);
     z-index: 5;
 }
 
@@ -250,7 +251,7 @@ form.calculate .form-control.from .plane {
     }
     100% {
         left: calc(100% - 28px);
-        top: calc(60vh - 54px);
+        top: calc(75vh - 54px);
         color: #5ac0ff;
         transform: rotate(90deg);
     }
@@ -277,7 +278,7 @@ form.calculate .form-control.from .plane {
         }
         100% {
             left: calc(100% - 36px);
-            top: calc(60vh - 48px);
+            top: calc(75vh - 48px);
             color: #5ac0ff;
             transform: rotate(90deg);
         }
@@ -312,8 +313,27 @@ form.calculate .form-control.from .plane {
     pointer-events: auto;
 }
 
+/*
+.results.flatten {
+    margin-top: -15px;
+}
+*/
+
+.results.flatten * {
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.results.flatten div {
+    margin-right: 10px;
+}
+
 .results button {
     margin-top: 20px;
+}
+
+.results.flatten button {
+    margin-top: 0;
 }
 
 #distance {
