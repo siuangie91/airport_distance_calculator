@@ -124,6 +124,7 @@ App = (function() {
             form.classList.remove('calculate');
             distance.innerHTML = "";
             submitBtn.classList.remove('hide');
+            submitBtn.setAttribute('disabled', 'disabled');
         });
     };
     
