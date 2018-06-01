@@ -1,0 +1,57 @@
+<!-- Developer: Angie Siu (siuangie91@gmail.com) -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Airport Distance Calculator</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <link href="https://fonts.googleapis.com/css?family=Lobster|Oswald" rel="stylesheet">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
+    <link rel="stylesheet" href="app.css">
+
+    <script src="lib/tools.js"></script>
+</head>
+<body>
+    <article>
+        <header>
+            <h1>Airport Distance Calculator</h1>
+            <p>You'll go far, but how far? Find out here!</p>
+        </header>
+
+        <main>
+            <form>
+                <div class="form-control from">
+                    <label>Where are you flying from?</label>
+                    <i class="fa fa-plane plane"></i>
+                    <div class="field">
+                        <input type="text" name="from" placeholder="Airport code (Example: JFK)" minlength="3" maxlength="3" required>
+                        <span class="indicator"></span>
+                    </div>
+                </div>
+                <div class="form-control to">
+                    <label>Where do you want to go?</label>
+                    <div class="field">
+                        <input type="text" name="to" placeholder="Airport code (Example: LAX)" minlength="3" maxlength="3">
+                        <span class="indicator"></span>
+                    </div>
+                </div>
+            </form>
+            <div class="submit">
+                <button disabled="disabled">Tell me just how far!</button>
+            </div>
+            
+            <section class="results">
+                <p>You will fly</p>
+                <p id="distance">13000</p>
+                <p>miles!</p>
+                <button>Calculate new distance!</button>
+            </section>
+        </main>
+    </article>
+    <footer>
+        <p>&copy; A Math Enthusiast</p>
+    </footer>
+    
+    <script src="app.js"></script>
+</body>
+</html>
