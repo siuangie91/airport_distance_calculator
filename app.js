@@ -5,7 +5,8 @@ App = (function() {
     var fromAirport = document.querySelector('input[name="from"]');
     var toAirport = document.querySelector('input[name="to"]');
     var form = document.querySelector('form');
-    var button = document.querySelector('.submit button');
+    var submitBtn = document.querySelector('.submit button');
+    var resetBtn = document.querySelector('.results button');
     var results = document.querySelector('.results');
     var distance = document.getElementById('distance');
     var numReqFields = 2;
@@ -14,7 +15,7 @@ App = (function() {
     var applyError = function(elem) {
         elem.classList.remove('valid');
         elem.classList.add('error');
-        button.setAttribute('disabled', 'disabled');
+        submitBtn.setAttribute('disabled', 'disabled');
     };
     
     var checkAirport = function(field) {
@@ -73,53 +74,64 @@ App = (function() {
                 var validFields = document.querySelectorAll('input.valid');
 
                 if(validFields.length === numReqFields) {
-                    button.removeAttribute('disabled');
+                    submitBtn.removeAttribute('disabled');
                 }
             });
 
         });
     };
     
-    var bindButton = function() {
+    var bindSubmitBtn = function() {
         
-        button.addEventListener('click', function() {
+        submitBtn.addEventListener('click', function(e) {
 //            console.log('clicked');
             
             // perform calc
             if(IntentMedia) {
-                checkAirport(fromAirport);
-                checkAirport(toAirport);
                 
-                console.log('valid airports');
-                
-                if(validAirports) {
-                    [].forEach.call(inputs, function(elem) {
-                        elem.setAttribute('readonly', 'readonly');
-                        elem.style.pointerEvents = 'none';
-                    });
+                [].forEach.call(inputs, function(elem) {
+                    elem.setAttribute('readonly', 'readonly');
+                    elem.style.pointerEvents = 'none';
+                });
 
-                    form.classList.add('calculate');
-                    results.classList.add('show');
+                form.classList.add('calculate');
+                results.classList.add('show');
 
-                    button.classList.add('hide');
-                    console.log(IntentMedia.Distances.distance_between_airports(fromAirport.value.toUpperCase(), toAirport.value.toUpperCase()));
-                }
+                submitBtn.classList.add('hide');
+    
+                var theDistance = IntentMedia.Distances.distance_between_airports(fromAirport.value.toUpperCase(), toAirport.value.toUpperCase());
                 
-                // check airport existence
-                    
-//                if(IntentMedia.Airports.airport_exists(fromValue) && IntentMedia.Airports.airport_exists(toValue)) {
-//                    console.log('both exist!');
-//                    
-//                    return; // do not execute the functions below
-//                }
+                // show the distance on the DOM
+                distance.innerHTML = theDistance;
             }
         });  
+    };
+    
+    var bindResetBtn = function() {
+        resetBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            
+            // reset all the things!
+            [].forEach.call(inputs, function(elem) {
+                elem.value = "";    
+                elem.classList.remove('valid', 'error');
+                elem.style.pointerEvents = 'auto';
+                elem.removeAttribute('readonly');
+                elem.removeAttribute('disabled');
+            });
+            
+            results.classList.remove('show');
+            form.classList.remove('calculate');
+            distance.innerHTML = "";
+            submitBtn.classList.remove('hide');
+        });
     };
     
     return {
         init: function() {
             bindFields();
-            bindButton();
+            bindSubmitBtn();
+            bindResetBtn();
         }
     }
  
