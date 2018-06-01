@@ -103,7 +103,7 @@ main {
 form {
     position: relative;
     min-height: 200px;
-    margin-bottom: 20px;
+    margin-bottom: 40px;
 }
 
 form.calculate {
@@ -202,6 +202,8 @@ form.calculate .form-control.from:before {
 
 .form-control.to .equal {
     display: none;
+    color: #ff0000;
+    font-size: 0.7rem;
 }
 
 .form-control.to .equal.show {

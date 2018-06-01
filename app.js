@@ -11,6 +11,12 @@ App = (function() {
     var numReqFields = 2;
     var validAirports = false;
     
+    var applyError = function(elem) {
+        elem.classList.remove('valid');
+        elem.classList.add('error');
+        button.setAttribute('disabled', 'disabled');
+    };
+    
     var checkAirport = function(field) {
         // reset classes
         var classes = field.parentNode.querySelector('.exists').classList;
@@ -20,9 +26,11 @@ App = (function() {
         classes.add('exists');
 
         if(!IntentMedia.Airports.airport_exists(field.value.toUpperCase())) {
+            applyError(field);
             classes.add('show');
             validAirports = false;
         } else {
+            field.classList.add('valid');
             validAirports = true;
         }
     };
@@ -33,16 +41,13 @@ App = (function() {
         var validCode = /^([a-z]|[A-Z]){3}$/;
 
 
-        var applyError = function(elem) {
-            elem.classList.add('error');
-            button.setAttribute('disabled', 'disabled');
-        };
-
         [].forEach.call(inputs, function(elem) { // querySelectorAll returns NodeList => can't iterate like an array
             elem.addEventListener('keyup', function(e) {
                 // reset classes
                 elem.classList.remove('valid', 'error');
+                elem.parentNode.querySelector('.exists').classList.remove('show');
                 toAirport.parentNode.querySelector('.equal').classList.remove('show');
+                
 
                 //if new char !== a letter, highlight as invalid
                 if(!charsOnly.test(e.target.value)) {
@@ -56,10 +61,14 @@ App = (function() {
                     applyError(elem);
                 }
                 
+                // check if airports exist 
+                checkAirport(elem);
+                
                 // airports cannot be the same
                 if(toAirport.value.toUpperCase() === fromAirport.value.toUpperCase()) {
                     toAirport.parentNode.querySelector('.equal').classList.add('show');
-                }
+                    applyError(toAirport);
+                } 
 
                 var validFields = document.querySelectorAll('input.valid');
 
@@ -76,22 +85,23 @@ App = (function() {
         button.addEventListener('click', function() {
 //            console.log('clicked');
             
-//            [].forEach.call(inputs, function(elem) {
-//                elem.setAttribute('readonly', 'readonly');
-//                elem.style.pointerEvents = 'none';
-//            });
-//            
-//            form.classList.add('calculate');
-//            results.classList.add('show');
-//            
-//            button.classList.add('hide');
-            
             // perform calc
             if(IntentMedia) {
                 checkAirport(fromAirport);
                 checkAirport(toAirport);
                 
+                console.log('valid airports');
+                
                 if(validAirports) {
+                    [].forEach.call(inputs, function(elem) {
+                        elem.setAttribute('readonly', 'readonly');
+                        elem.style.pointerEvents = 'none';
+                    });
+
+                    form.classList.add('calculate');
+                    results.classList.add('show');
+
+                    button.classList.add('hide');
                     console.log(IntentMedia.Distances.distance_between_airports(fromAirport.value.toUpperCase(), toAirport.value.toUpperCase()));
                 }
                 
