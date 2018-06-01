@@ -294,7 +294,7 @@ form.calculate .form-control.from .plane {
 .results {
     position: absolute;
     width: calc(100% - 30px);
-    top: 50%;
+    top: 45%;
     left: 50%;
     text-align: center;
     opacity: 0;
@@ -313,12 +313,6 @@ form.calculate .form-control.from .plane {
     pointer-events: auto;
 }
 
-/*
-.results.flatten {
-    margin-top: -15px;
-}
-*/
-
 .results.flatten * {
     display: inline-block;
     vertical-align: middle;
@@ -329,7 +323,7 @@ form.calculate .form-control.from .plane {
 }
 
 .results button {
-    margin-top: 20px;
+    margin-top: 10px;
 }
 
 .results.flatten button {

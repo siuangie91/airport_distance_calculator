@@ -130,7 +130,7 @@ App = (function() {
     var adjustToViewportHeight = function() {
         var height = document.documentElement.clientHeight;
         
-        if(height <= 600) {
+        if(height <= 460) {
             results.classList.add('flatten');
         } else {
             results.classList.remove('flatten');
