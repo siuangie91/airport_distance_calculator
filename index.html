@@ -23,7 +23,10 @@
                     <i class="fa fa-plane plane"></i>
                     <div class="field">
                         <input type="text" name="from" placeholder="Airport code (Example: JFK)" minlength="3" maxlength="3" required>
-                        <span class="indicator"></span>
+                        <span class="indicator">
+                            <i class="fa fa-check-circle check"></i>
+                            <i class="fa fa-times-circle cross"></i>
+                        </span>
                         <span class="exists">Sorry! No such airport!</span>
                     </div>
                 </div>
@@ -31,7 +34,10 @@
                     <label>Where do you want to go?</label>
                     <div class="field">
                         <input type="text" name="to" placeholder="Airport code (Example: LAX)" minlength="3" maxlength="3">
-                        <span class="indicator"></span>
+                        <span class="indicator">
+                            <i class="fa fa-check-circle check"></i>
+                            <i class="fa fa-times-circle cross"></i>
+                        </span>
                         <span class="exists">Sorry! No such airport!</span>
                         <span class="equal">Your destination cannot be the same as your origin!</span>
                     </div>
