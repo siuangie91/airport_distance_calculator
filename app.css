@@ -10,6 +10,12 @@ html, body {
     font-size: 18px;
 }
 
+@media screen and (min-width: 768px) {
+    html, body {
+        font-size: 22px;
+    }
+}
+
 /************/
 /***BRICKS***/
 /************/
@@ -60,9 +66,9 @@ input {
 
 button {
     display: block;
-    width: 200px;
     height: 50px;
     margin: 0 auto;
+    padding: 5px 20px;
     background: green;
     color: #000;
     font-size: 1.1rem;
@@ -80,7 +86,9 @@ button[disabled="disabled"] {
 /************/
 
 article {
+    max-width: 700px;
     min-height: calc(100vh - 60px);
+    margin: 0 auto;
     padding: 10px 20px;
 }
 
@@ -118,15 +126,23 @@ form.calculate {
     width: 2px;
     height: 0;
     top: 100%;
-    right: 10px;
+    right: 15px;
     border-left: 2px dashed black;
     transition: height 800ms;
     transition-delay: 200ms;
     transition-timing-function: linear;
 }
 
+@media screen and (min-width: 768px) {
+    .form-control.from:before {
+        top: calc(100% + 10px);
+        right: 21px;
+    }
+}
+
 form.calculate .form-control.from:before {
-    height: calc(60vh - 160px);
+    height: calc(60vh - 115px);
+    z-index: 5;
 }
 
 .form-control.to {
@@ -151,8 +167,11 @@ form.calculate .form-control.from:before {
     border-color: #04b104;
 }
 
-.form-control .indicator {
+.form-control span {
     display: block;
+}
+
+.form-control .indicator {
     position: absolute;
     width: 0;
     height: 0;
@@ -163,6 +182,16 @@ form.calculate .form-control.from:before {
     border-color: transparent #ccc transparent transparent;
 }
 
+.form-control .exists {
+    font-size: 0.7rem;
+    color: #ff0000;
+    display: none;
+}
+
+.form-control .exists.show {
+    display: block;
+}
+
 .form-control input.error + .indicator {
     border-color: transparent #ff0000 transparent transparent;
 }
@@ -170,6 +199,16 @@ form.calculate .form-control.from:before {
 .form-control input.valid + .indicator {
     border-color: transparent #04b104 transparent transparent;
 }
+
+.form-control.to .equal {
+    display: none;
+}
+
+.form-control.to .equal.show {
+    display: block;
+}
+
+/*** plane ***/
 
 .form-control.from .plane {
     position: absolute;
@@ -185,28 +224,51 @@ form.calculate .form-control.from .plane {
 }
 
 @keyframes fly {
-    0%, 100% {
-        color: green;
-    }
-    
-    50%, 100% {
-        transform: rotate(90deg);
-    }
-    
     0% {
         left: 186px;
+        color: green;
     }
     38% {
-        left: calc(100% - 23px);
+        left: calc(100% - 28px);
         transform: rotate(0);
     }
     50% {
         top: 4px;
+        transform: rotate(90deg);
     }
     100% {
-        left: calc(100% - 23px);
-        top: calc(60vh - 100px);
+        left: calc(100% - 28px);
+        top: calc(60vh - 54px);
+        color: green;
+        transform: rotate(90deg);
+    }
+}
+
+@media screen and (min-width: 768px) {
+    .form-control.from .plane {
+        left: 224px;
+    }
+    
+    @keyframes fly {
+        0% {
+            left: 224px;
+            color: green;
+        }
         
+        38% {
+            left: calc(100% - 36px);
+            transform: rotate(0);
+        }
+        50% {
+            top: 4px;
+            transform: rotate(90deg);
+        }
+        100% {
+            left: calc(100% - 36px);
+            top: calc(60vh - 48px);
+            color: green;
+            transform: rotate(90deg);
+        }
     }
 }
 
@@ -218,13 +280,14 @@ form.calculate .form-control.from .plane {
 /**** results ****/
 .results {
     position: absolute;
-    top: 250px;
+    width: calc(100% - 30px);
+    top: 50%;
     left: 50%;
     text-align: center;
     opacity: 0;
-    -webkit-transform: translate(-50%,0);
-    -moz-transform: translate(-50%,0);
-    transform: translate(-50%,0);
+    -webkit-transform: translate(-50%,-50%);
+    -moz-transform: translate(-50%,-50%);
+    transform: translate(-50%,-50%);
     pointer-events: none;
 }
 
@@ -235,6 +298,10 @@ form.calculate .form-control.from .plane {
     transition: opacity 800ms;
     transition-delay: 2000ms;
     pointer-events: auto;
+}
+
+.results button {
+    margin-top: 20px;
 }
 
 #distance {

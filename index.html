@@ -8,8 +8,6 @@
     <link href="https://fonts.googleapis.com/css?family=Lobster|Oswald" rel="stylesheet">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
     <link rel="stylesheet" href="app.css">
-
-    <script src="lib/tools.js"></script>
 </head>
 <body>
     <article>
@@ -26,6 +24,7 @@
                     <div class="field">
                         <input type="text" name="from" placeholder="Airport code (Example: JFK)" minlength="3" maxlength="3" required>
                         <span class="indicator"></span>
+                        <span class="exists">Sorry! No such airport!</span>
                     </div>
                 </div>
                 <div class="form-control to">
@@ -33,25 +32,30 @@
                     <div class="field">
                         <input type="text" name="to" placeholder="Airport code (Example: LAX)" minlength="3" maxlength="3">
                         <span class="indicator"></span>
+                        <span class="exists">Sorry! No such airport!</span>
+                        <span class="equal">Your destination cannot be the same as your origin!</span>
                     </div>
                 </div>
+                
+                <section class="results">
+                    <p>You will fly</p>
+                    <p id="distance"></p>
+                    <p>miles!</p>
+                    <button>Calculate new distance!</button>
+                </section>
             </form>
             <div class="submit">
                 <button disabled="disabled">Tell me just how far!</button>
             </div>
             
-            <section class="results">
-                <p>You will fly</p>
-                <p id="distance">13000</p>
-                <p>miles!</p>
-                <button>Calculate new distance!</button>
-            </section>
+            
         </main>
     </article>
     <footer>
         <p>&copy; A Math Enthusiast</p>
     </footer>
     
+    <script src="lib/tools.js"></script>
     <script src="app.js"></script>
 </body>
 </html>
