@@ -13,26 +13,35 @@ App = (function() {
     var numReqFields = 2;
     var validAirports = false;
     
+    var ErrorMsgs = {
+        NOSUCHAIRPORT: 'Sorry! No such airport!',
+        CANNOTBESAME: 'Your destination cannot be the same as your origin!',
+        VALIDFORMAT: 'Letters only, please!'
+    }
+
+    var lettersOnly = /[A-Z]|[a-z]/;
     
     /******* helper functions ******/
-    var applyError = function(elem) {
-        elem.classList.remove('valid');
-        elem.classList.add('error');
+    var applyError = function(field) {
+        field.classList.remove('valid');
+        field.classList.add('error');
         submitBtn.setAttribute('disabled', 'disabled');
     };
     
+    var resetField = function(field) {
+        field.classList.remove('valid', 'error');
+        field.parentNode.querySelector('.error-label').innerHTML = "";
+    };
+
     var checkAirport = function(field) {
-        // reset classes
-        var classes = field.parentNode.querySelector('.exists').classList;
-        while (classes.length > 0) {
-            classes.remove(classes.item(0));
-        }
-        classes.add('exists');
+        // reset error-label
+        var errorLabel = field.parentNode.querySelector('.error-label');
+        errorLabel.innerHTML = "";
 
         if(IntentMedia) { // check to make sure IntentMedia object exists
             if(!IntentMedia.Airports.airport_exists(field.value.toUpperCase())) { // if airport does not exist
                 applyError(field);
-                classes.add('show');
+                errorLabel.innerHTML = ErrorMsgs.NOSUCHAIRPORT;
                 validAirports = false;
             } else {
                 field.classList.add('valid');
@@ -41,27 +50,40 @@ App = (function() {
         }
     };
     
+
+    /**** main binding ****/
     var bindFields = function() {
         [].forEach.call(inputs, function(elem) { // querySelectorAll returns NodeList => can't iterate like an array
+            var errorLabel = elem.parentNode.querySelector('.error-label');
+
             elem.addEventListener('keyup', function(e) {
                 // reset classes
-                elem.classList.remove('valid', 'error');
-                elem.parentNode.querySelector('.exists').classList.remove('show');
-                toAirport.parentNode.querySelector('.equal').classList.remove('show');
+                resetField(elem);
+                resetField(toAirport);
+                
+                if(elem.value.length > 0) { // only start validating if something has been entered into the field
 
-                // check if airports exist 
-                checkAirport(elem);
-                
-                // airports cannot be the same
-                if(toAirport.value.toUpperCase() === fromAirport.value.toUpperCase()) {
-                    toAirport.parentNode.querySelector('.equal').classList.add('show');
-                    applyError(toAirport);
-                } 
-                
-                // enable submit button if both fields are valid
-                var validFields = document.querySelectorAll('input.valid');
-                if(validFields.length === numReqFields) {
-                    submitBtn.removeAttribute('disabled');
+                    if(!lettersOnly.test(e.target.value)) { // if not a letter
+                        errorLabel.innerHTML = ErrorMsgs.VALIDFORMAT;
+                        return;
+                    }
+
+                    // check if airports exist
+                    checkAirport(elem);
+
+                    // airports cannot be the same
+                    if(toAirport.value.toUpperCase() === fromAirport.value.toUpperCase()) {
+                        applyError(toAirport);
+                        toAirport.parentNode.querySelector('.error-label').innerHTML = ErrorMsgs.CANNOTBESAME;
+                    } else {
+                        checkAirport(toAirport); // if not equal, check toAirport in case user changes fromAirport
+                    }
+
+                    // enable submit button if both fields are valid
+                    var validFields = document.querySelectorAll('input.valid');
+                    if(validFields.length === numReqFields) {
+                        submitBtn.removeAttribute('disabled');
+                    }
                 }
             });
         });
