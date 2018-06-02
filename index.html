@@ -12,7 +12,7 @@
 <body ontouchstart>
     <article>
         <header>
-            <h1>Airport Distance Calculator</h1>
+            <h1 class="fancy-text">Airport Distance Calculator</h1>
             <p>You'll go far, but how far? Find out here!</p>
         </header>
 
@@ -43,24 +43,25 @@
                     </div>
                 </div>
                 
-                <section class="results">
-                    <div>
-                        <p>You will fly</p>
-                        <p id="distance"></p>
-                        <p>miles!</p>
-                    </div>
-                    <button>Calculate new distance!</button>
-                </section>
+
             </form>
             <div class="submit">
-                <button disabled="disabled">Tell me just how far!</button>
+                <button disabled="disabled" tabindex="0">Tell me just how far!</button>
             </div>
             
+            <section class="results">
+                <div>
+                    <p>You will fly</p>
+                    <p id="distance" class="fancy-text"></p>
+                    <p>miles!</p>
+                </div>
+                <button disabled="disabled">Calculate new distance!</button>
+            </section>
             
         </main>
     </article>
     <footer>
-        <p>&copy; Angie Siu, a front-end enthusiast</p>
+        <p>&copy; <a href="https://github.com/siuangie91/" target="_blank">Angie Siu</a>, a front-end enthusiast</p>
     </footer>
     
     <script src="lib/tools.js"></script>

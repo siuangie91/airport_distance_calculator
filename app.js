@@ -37,10 +37,6 @@ App = (function() {
     };
     
     var bindFields = function() {
-        /*** regexes ***/
-        var charsOnly = /[A-Z]|[a-z]/;
-        var validCode = /^([a-z]|[A-Z]){3}$/;
-
 
         [].forEach.call(inputs, function(elem) { // querySelectorAll returns NodeList => can't iterate like an array
             elem.addEventListener('keyup', function(e) {
@@ -48,20 +44,7 @@ App = (function() {
                 elem.classList.remove('valid', 'error');
                 elem.parentNode.querySelector('.exists').classList.remove('show');
                 toAirport.parentNode.querySelector('.equal').classList.remove('show');
-                
 
-                //if new char !== a letter, highlight as invalid
-                if(!charsOnly.test(e.target.value)) {
-                    applyError(elem);
-                }
-
-                //if the whole field is valid (exactly 3 letters), highlight as valid
-                if(validCode.test(elem.value)) {
-                    elem.classList.add('valid');
-                } else {
-                    applyError(elem);
-                }
-                
                 // check if airports exist 
                 checkAirport(elem);
                 
@@ -77,15 +60,11 @@ App = (function() {
                     submitBtn.removeAttribute('disabled');
                 }
             });
-
         });
     };
     
     var bindSubmitBtn = function() {
-        
         submitBtn.addEventListener('click', function(e) {
-//            console.log('clicked');
-            
             // perform calc
             if(IntentMedia) {
                 
@@ -96,6 +75,7 @@ App = (function() {
 
                 form.classList.add('calculate');
                 results.classList.add('show');
+                resetBtn.removeAttribute('disabled');
 
                 submitBtn.classList.add('hide');
     
@@ -125,6 +105,7 @@ App = (function() {
             distance.innerHTML = "";
             submitBtn.classList.remove('hide');
             submitBtn.setAttribute('disabled', 'disabled');
+            resetBtn.setAttribute('disabled', 'disabled');
         });
     };
     

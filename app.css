@@ -10,6 +10,16 @@ html, body {
     font-size: 18px;
 }
 
+html {
+    background: url(https://scontent-lga3-1.cdninstagram.com/vp/3e202a8dd86ea1d9c52f83a94e631864/5BB45CAC/t51.2885-15/s750x750/sh0.08/e35/21436207_1677237305633401_7040534219528863744_n.jpg) no-repeat;
+    background-position: center top;
+    background-size: cover;
+}
+
+body {
+    background: rgba(255,255,255,0.8);
+}
+
 @media screen and (min-width: 768px) {
     html, body {
         font-size: 22px;
@@ -81,6 +91,11 @@ button[disabled="disabled"] {
     cursor: default;
 }
 
+.fancy-text {
+    color: #5ac0ff;
+    text-shadow: 0 1px 2px #fff;
+}
+
 /************/
 /***STRUCTURES***/
 /************/
@@ -96,11 +111,8 @@ article header {
     text-align: center;
 }
 
-article header h1 {
-    color: #5ac0ff;
-}
-
 main {
+    position: relative;
     margin-top: 20px;
     width: calc(100% - 20px);
 }
@@ -294,7 +306,7 @@ form.calculate .form-control.from .plane {
 .results {
     position: absolute;
     width: calc(100% - 30px);
-    top: 45%;
+    top: 50%;
     left: 50%;
     text-align: center;
     opacity: 0;
@@ -331,7 +343,6 @@ form.calculate .form-control.from .plane {
 }
 
 #distance {
-    color: #5ac0ff;
     font-family: 'Lobster', cursive;
     font-size: 2.2rem;
 }
@@ -352,4 +363,9 @@ footer p {
     -webkit-transform: translate(0,-50%);
     -moz-transform: translate(0,-50%);
     transform: translate(0,-50%);
+}
+
+footer a,
+footer a:visited {
+    color: #ff0000;
 }
