@@ -16,11 +16,8 @@ App = (function() {
     var ErrorMsgs = {
         NOSUCHAIRPORT: 'Sorry! No such airport!',
         CANNOTBESAME: 'Your destination cannot be the same as your origin!',
-        VALIDFORMAT: 'Letters only, please!'
     }
 
-    var lettersOnly = /[A-Z]|[a-z]/;
-    
     /******* helper functions ******/
     var applyError = function(field) {
         field.classList.remove('valid');
@@ -56,27 +53,23 @@ App = (function() {
         [].forEach.call(inputs, function(elem) { // querySelectorAll returns NodeList => can't iterate like an array
             var errorLabel = elem.parentNode.querySelector('.error-label');
 
-            elem.addEventListener('keyup', function(e) {
+            elem.addEventListener('keyup', function() {
                 // reset classes
                 resetField(elem);
                 resetField(toAirport);
                 
                 if(elem.value.length > 0) { // only start validating if something has been entered into the field
-
-                    if(!lettersOnly.test(e.target.value)) { // if not a letter
-                        errorLabel.innerHTML = ErrorMsgs.VALIDFORMAT;
-                        return;
-                    }
-
                     // check if airports exist
                     checkAirport(elem);
 
                     // airports cannot be the same
-                    if(toAirport.value.toUpperCase() === fromAirport.value.toUpperCase()) {
-                        applyError(toAirport);
-                        toAirport.parentNode.querySelector('.error-label').innerHTML = ErrorMsgs.CANNOTBESAME;
-                    } else {
-                        checkAirport(toAirport); // if not equal, check toAirport in case user changes fromAirport
+                    if(toAirport.value.length > 0) {
+                        if(toAirport.value.toUpperCase() === fromAirport.value.toUpperCase()) {
+                            applyError(toAirport);
+                            toAirport.parentNode.querySelector('.error-label').innerHTML = ErrorMsgs.CANNOTBESAME;
+                        } else {
+                            checkAirport(toAirport); // if not equal, check toAirport in case user changes fromAirport
+                        }
                     }
 
                     // enable submit button if both fields are valid
