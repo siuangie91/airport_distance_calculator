@@ -102,7 +102,7 @@ button[disabled="disabled"] {
 
 article {
     max-width: 700px;
-    min-height: calc(100vh - 60px);
+    min-height: calc(100vh - 70px);
     margin: 0 auto;
     padding: 10px 20px;
 }
@@ -350,16 +350,16 @@ form.calculate .form-control.from .plane {
 /*** footer ***/
 footer {
     position: relative;
-    height: 60px;
+    height: 70px;
     background: rgba(90, 192, 255, 0.6);
 }
 
-footer p {
+footer div {
     position: absolute;
     width: 100%;
     top: 50%;
     text-align: center;
-    font-size: 0.8rem;
+    font-size: 0.7rem;
     -webkit-transform: translate(0,-50%);
     -moz-transform: translate(0,-50%);
     transform: translate(0,-50%);
