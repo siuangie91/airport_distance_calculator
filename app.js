@@ -1,6 +1,7 @@
 var App = App || {};
 
 App = (function() {
+    /******* initial properties *******/
     var inputs = document.querySelectorAll('input');
     var fromAirport = document.querySelector('input[name="from"]');
     var toAirport = document.querySelector('input[name="to"]');
@@ -12,6 +13,8 @@ App = (function() {
     var numReqFields = 2;
     var validAirports = false;
     
+    
+    /******* helper functions ******/
     var applyError = function(elem) {
         elem.classList.remove('valid');
         elem.classList.add('error');
@@ -26,18 +29,19 @@ App = (function() {
         }
         classes.add('exists');
 
-        if(!IntentMedia.Airports.airport_exists(field.value.toUpperCase())) {
-            applyError(field);
-            classes.add('show');
-            validAirports = false;
-        } else {
-            field.classList.add('valid');
-            validAirports = true;
+        if(IntentMedia) { // check to make sure IntentMedia object exists
+            if(!IntentMedia.Airports.airport_exists(field.value.toUpperCase())) { // if airport does not exist
+                applyError(field);
+                classes.add('show');
+                validAirports = false;
+            } else {
+                field.classList.add('valid');
+                validAirports = true;
+            }    
         }
     };
     
     var bindFields = function() {
-
         [].forEach.call(inputs, function(elem) { // querySelectorAll returns NodeList => can't iterate like an array
             elem.addEventListener('keyup', function(e) {
                 // reset classes
@@ -53,9 +57,9 @@ App = (function() {
                     toAirport.parentNode.querySelector('.equal').classList.add('show');
                     applyError(toAirport);
                 } 
-
+                
+                // enable submit button if both fields are valid
                 var validFields = document.querySelectorAll('input.valid');
-
                 if(validFields.length === numReqFields) {
                     submitBtn.removeAttribute('disabled');
                 }
@@ -65,20 +69,24 @@ App = (function() {
     
     var bindSubmitBtn = function() {
         submitBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            
             // perform calc
-            if(IntentMedia) {
+            if(IntentMedia) { // check existence first
                 
-                [].forEach.call(inputs, function(elem) {
+                [].forEach.call(inputs, function(elem) { // disable interaction with fields through calc process
                     elem.setAttribute('readonly', 'readonly');
                     elem.style.pointerEvents = 'none';
                 });
 
+                // show results container and hide the submit button to prevent bugs caused by further interaction with non reset button elems
                 form.classList.add('calculate');
                 results.classList.add('show');
                 resetBtn.removeAttribute('disabled');
 
                 submitBtn.classList.add('hide');
     
+                // get the distance
                 var theDistance = IntentMedia.Distances.distance_between_airports(fromAirport.value.toUpperCase(), toAirport.value.toUpperCase());
                 
                 // show the distance on the DOM
@@ -112,6 +120,7 @@ App = (function() {
     var adjustToViewportHeight = function() {
         var height = document.documentElement.clientHeight;
         
+        // adjust results container based on viewport height
         if(height <= 460) {
             results.classList.add('flatten');
         } else {
@@ -120,6 +129,7 @@ App = (function() {
     };
     
     var detectWindowResize = function() {
+        // window resize should trigger adjustment to viewport height
         window.addEventListener('resize', function() {
             adjustToViewportHeight();
         });
