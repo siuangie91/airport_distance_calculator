@@ -123,32 +123,18 @@ main {
 
 form {
     position: relative;
+    height: 10vh;
     min-height: 200px;
     margin-bottom: 40px;
 }
 
-form.calculate {
-    min-height: 75vh;
-    max-height: 600px;
-    -webkit-transition: min-height 800ms;
-    -moz-transition: min-height 800ms;
-    transition: min-height 800ms;
-}
-
-/**** form ****/
-.form-control {
-    position: relative;
-    height: 70px;
-    margin-bottom: 20px;
-}
-
-.form-control.from:before {
+form:before {
     content: "";
     display: block;
     position: absolute;
     width: 2px;
     height: 0;
-    top: 100%;
+    top: 70px;
     right: 15px;
     border-left: 2px dashed black;
     -webkit-transition: height 800ms;
@@ -163,21 +149,39 @@ form.calculate {
 }
 
 @media screen and (min-width: 768px) {
-    .form-control.from:before {
-        top: calc(100% + 10px);
+    form:before {
+        top: 80px;
         right: 21px;
     }
 }
 
-form.calculate .form-control.from:before {
-    height: calc(75vh - 115px);
+form.calculate {
+    height: 75vh;
+    min-height: 260px;
+    max-height: 600px;
+    -webkit-transition: height 800ms;
+    -moz-transition: height 800ms;
+    transition: height 800ms;
+}
+
+form.calculate:before {
+    height: calc(100% - 90px);
     z-index: 5;
 }
 
+
+/**** form ****/
+.form-control {
+    position: relative;
+    height: 70px;
+    margin-bottom: 20px;
+}
+
 .form-control.to {
-    width: 100%;
     position: absolute;
+    width: 100%;
     bottom: 0;
+    margin-bottom: 0;
 }
 
 .form-control .field {
@@ -225,36 +229,21 @@ form.calculate .form-control.from:before {
     display: block;
 }
 
-.form-control .exists {
+.form-control .error-label {
     font-size: 0.7rem;
     color: #ff0000;
-    display: none;
-}
-
-.form-control .exists.show {
-    display: block;
-}
-
-.form-control.to .equal {
-    display: none;
-    color: #ff0000;
-    font-size: 0.7rem;
-}
-
-.form-control.to .equal.show {
-    display: block;
 }
 
 /*** plane ***/
 
-.form-control.from .plane {
+.plane {
     position: absolute;
     top: 4px;
     left: 186px;
     z-index: 10;
 }
 
-form.calculate .form-control.from .plane {
+form.calculate .plane {
     animation-name: fly;
     animation-duration: 2000ms;
     animation-fill-mode: forwards;
@@ -275,7 +264,7 @@ form.calculate .form-control.from .plane {
     }
     100% {
         left: calc(100% - 28px);
-        top: calc(75vh - 54px);
+        top: calc(100% - 32px);
         color: #5ac0ff;
         -webkit-transform: rotate(90deg);
     }
@@ -296,7 +285,7 @@ form.calculate .form-control.from .plane {
     }
     100% {
         left: calc(100% - 28px);
-        top: calc(75vh - 54px);
+        top: calc(100% - 32px);
         color: #5ac0ff;
         -moz-transform: rotate(90deg);
     }
@@ -317,14 +306,14 @@ form.calculate .form-control.from .plane {
     }
     100% {
         left: calc(100% - 28px);
-        top: calc(75vh - 54px);
+        top: calc(100% - 32px);
         color: #5ac0ff;
         transform: rotate(90deg);
     }
 }
 
 @media screen and (min-width: 768px) {
-    .form-control.from .plane {
+    .plane {
         left: 224px;
     }
     
@@ -344,7 +333,7 @@ form.calculate .form-control.from .plane {
         }
         100% {
             left: calc(100% - 36px);
-            top: calc(75vh - 48px);
+            top: calc(100% - 26px);
             color: #5ac0ff;
             -webkit-transform: rotate(90deg);
         }
@@ -366,7 +355,7 @@ form.calculate .form-control.from .plane {
         }
         100% {
             left: calc(100% - 36px);
-            top: calc(75vh - 48px);
+            top: calc(100% - 26px);
             color: #5ac0ff;
             -moz-transform: rotate(90deg);
         }
@@ -388,7 +377,7 @@ form.calculate .form-control.from .plane {
         }
         100% {
             left: calc(100% - 36px);
-            top: calc(75vh - 48px);
+            top: calc(100% - 26px);
             color: #5ac0ff;
             transform: rotate(90deg);
         }
