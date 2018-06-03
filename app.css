@@ -83,8 +83,6 @@ button {
     height: 50px;
     margin: 0 auto;
     padding: 5px 20px;
-    background: #5ac0ff;
-    color: #000;
     font-size: 1.1rem;
     cursor: pointer;
 }
@@ -93,6 +91,19 @@ button[disabled="disabled"] {
     background: #ddd;
     color: #999;
     cursor: default;
+}
+
+button:not([disabled="disabled"]) {
+    border: 1px solid #98d8ff;
+    box-shadow: 0 6px 0 #1c5e88;
+    background: #5ac0ff;
+    color: #000;
+}
+
+button:not([disabled="disabled"]):hover {
+    position: relative;
+    top: 3px;
+    box-shadow: 0 3px 0 #1c5e88;
 }
 
 .fancy-text {
