@@ -100,7 +100,8 @@ button:not([disabled="disabled"]) {
     color: #000;
 }
 
-button:not([disabled="disabled"]):hover {
+button:not([disabled="disabled"]):hover,
+button:not([disabled="disabled"]):focus {
     position: relative;
     top: 3px;
     box-shadow: 0 3px 0 #1c5e88;
