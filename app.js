@@ -35,7 +35,9 @@ App = (function() {
         var errorLabel = field.parentNode.querySelector('.error-label');
         errorLabel.innerHTML = "";
 
-        if(IntentMedia) { // check to make sure IntentMedia object exists
+        if(!window.IntentMedia) { // check if IntentMedia object exists
+            throw Error('IntentMedia not found!');
+        } else {
             if(!IntentMedia.Airports.airport_exists(field.value.toUpperCase())) { // if airport does not exist
                 applyError(field);
                 errorLabel.innerHTML = ErrorMsgs.NOSUCHAIRPORT;
@@ -87,7 +89,9 @@ App = (function() {
             e.preventDefault();
             
             // perform calc
-            if(IntentMedia) { // check existence first
+            if(!window.IntentMedia) { // check if IntentMedia object exists
+                throw Error('IntentMedia not found!');
+            } else {
                 
                 [].forEach.call(inputs, function(elem) { // disable interaction with fields through calc process
                     elem.setAttribute('readonly', 'readonly');
@@ -107,6 +111,7 @@ App = (function() {
                 // show the distance on the DOM
                 distance.innerHTML = theDistance;
             }
+            
         });  
     };
     
