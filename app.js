@@ -155,8 +155,30 @@ App = (function() {
         });
     }
     
+
+    var getFromTo = function() {
+        var getURL = new URL(document.location);
+        var params = getURL.searchParams;
+
+        var from = params.get('from');
+        var to = params.get('to');
+
+        fromAirport.value = from;
+        toAirport.value = to;
+
+        checkAirport(fromAirport);
+        checkAirport(toAirport);
+
+        var validFields = document.querySelectorAll('input.valid');
+        if(validFields.length === numReqFields) {
+            submitBtn.removeAttribute('disabled');
+        }
+    };
+
+
     return {
         init: function() {
+            getFromTo();
             adjustToViewportHeight();
 
             bindFields();
